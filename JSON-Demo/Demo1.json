@@ -1,5 +1,15 @@
 {
-    "name": "Tesfaye Gari",
-    "dob": "1/1/2020",
-    "state": "Maryland"
+    "name": "Puppy",
+    "dateOfBirth": "4/1/2022",
+    "category": "dog",
+    "sex": "male",
+    "childeren": [
+        {
+            "name": "Puppy1",
+            "dateOfBirth": "4/1/2021",
+            "category": "dog",
+            "sex": "Female",
+            "childeren": null
+        }
+    ]
 }
