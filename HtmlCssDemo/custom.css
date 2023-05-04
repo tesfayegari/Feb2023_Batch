@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #d9f1fa;
 }
 
@@ -6,6 +6,7 @@ body{
     margin: 0;
     padding: 0;
 }
+
 #headings {
     background-color: #000;
     color: #fff;
@@ -14,11 +15,85 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#paragraphs,#images, #lists {
-   width: 80%;
-   margin: auto;
-   background-color: #f8f8ff;
-   padding: 1em;
+#paragraphs,
+#images,
+#lists {
+    width: 80%;
+    margin: auto;
+    background-color: #f8f8ff;
+    padding: 1em;
 }
- 
 
+/* #image1, #image2, #image3 {
+    width: 33.3%;
+    float: left;
+} */
+
+
+.col-container,
+#images {
+    display: table;
+    width: 80%;
+    margin: auto;
+}
+
+img {
+    height: 100%;
+
+}
+
+.col,
+#image1,
+#image2,
+#image3 {
+    display: table-cell;
+    padding: 1em;
+}
+
+#links {
+    padding-top: 0.5em;
+}
+
+/* a#mainLink{
+    padding: 0.5em;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.2em;
+    text-decoration: none;
+    border-radius: 6px;
+} */
+
+/* #mainLink:hover {
+    background-color: #410a0a;
+} */
+
+#mainLink {
+    width: 240px;
+    height: 75px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    padding: 8px;
+}
+
+
+
+#mainLink:hover {
+
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+
+}

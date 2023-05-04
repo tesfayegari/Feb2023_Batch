@@ -65,3 +65,17 @@ example: color, margin, padding, size, ....
 .className {color: red;}
 
 
+Typescript/JavaScript
+
+Terms 
+
+variables
+statements
+operators 
+conditional statements
+looping 
+functions/methods
+Object Oriented Programming (class, interface, inheritance, Polymorphism )
+JSON Vs JavaScript Object
+
+
