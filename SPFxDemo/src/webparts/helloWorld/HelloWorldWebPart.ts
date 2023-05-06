@@ -1,95 +1,66 @@
 import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneCheckbox,
+  PropertyPaneDropdown,
+  PropertyPaneTextField,
+  PropertyPaneToggle
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
-import { escape } from '@microsoft/sp-lodash-subset';
+import { SPComponentLoader } from '@microsoft/sp-loader';
+import { SPService } from './Services/SPService';
 
-import styles from './HelloWorldWebPart.module.scss';
-import * as strings from 'HelloWorldWebPartStrings';
 
 
 export interface IHelloWorldWebPartProps {
-  description: string;
+  description: string;//description/webpart title
+  test: string;//multiline
+  test1: boolean;//checkbox
+  test2: string;//dropdown
+  test3: boolean;//toggle
 }
 
 export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorldWebPartProps> {
-
-  private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
+  service: SPService;
+  spGroups: any[];
+  spLists: any[];
 
   public render(): void {
+    //this.service.readAllSPGroups().then(groups => console.log('Groups are ', groups));
+    //this.service.getAllSharePointLists().then(lists => console.log('Groups are ', lists));
+
+    let bootstrap = "https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css";
+    SPComponentLoader.loadCss(bootstrap);
+
+    let tempHtml = '<div class="list-group">';
+    for(let g of this.spGroups){
+      tempHtml += `<a href="#" class="list-group-item list-group-item-action">${g.LoginName}</a>`
+    }
+    tempHtml += "</div>";
+
+
     this.domElement.innerHTML = `
-    <section class="${styles.helloWorld} ${!!this.context.sdks.microsoftTeams ? styles.teams : ''}">
-      <div class="${styles.welcome}">
-        <img alt="" src="${this._isDarkTheme ? require('./assets/welcome-dark.png') : require('./assets/welcome-light.png')}" class="${styles.welcomeImage}" />
-        <h2>Well done, ${escape(this.context.pageContext.user.displayName)}!</h2>
-        <div>${this._environmentMessage}</div>
-        <div>Web part property value: <strong>${escape(this.properties.description)}</strong></div>
-      </div>
-      <div>
-        <h3>Welcome to SharePoint Framework!</h3>
-        <p>
-        The SharePoint Framework (SPFx) is a extensibility model for Microsoft Viva, Microsoft Teams and SharePoint. It's the easiest way to extend Microsoft 365 with automatic Single Sign On, automatic hosting and industry standard tooling.
-        </p>       
-        
-      </div>
-    </section>`;
+                      <h3 class="${this.properties.test1 ? 'd-none' : ''}">${this.properties.description}</h3>
+                      <div class="jumbotron text-center">
+                        <h1>SP Groups in ${this.context.pageContext.web.title}</h1>   
+                        
+                      </div>
+                      <div class="container">
+                        ${tempHtml}
+                      </div>`;
   }
 
   protected onInit(): Promise<void> {
-    return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
+    if (this.service == undefined || this.service == null)
+      this.service = new SPService(this.context);
+    return this.service.readAllSPGroups().then(groups => {
+      console.log('Groups are ', groups);
+      this.spGroups = groups.value;
     });
-  }
-
-
-
-  private _getEnvironmentMessage(): Promise<string> {
-    if (!!this.context.sdks.microsoftTeams) { // running in Teams, office.com or Outlook
-      return this.context.sdks.microsoftTeams.teamsJs.app.getContext()
-        .then(context => {
-          let environmentMessage: string = '';
-          switch (context.app.host.name) {
-            case 'Office': // running in Office
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentOffice : strings.AppOfficeEnvironment;
-              break;
-            case 'Outlook': // running in Outlook
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentOutlook : strings.AppOutlookEnvironment;
-              break;
-            case 'Teams': // running in Teams
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentTeams : strings.AppTeamsTabEnvironment;
-              break;
-            default:
-              throw new Error('Unknown host');
-          }
-
-          return environmentMessage;
-        });
-    }
-
-    return Promise.resolve(this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentSharePoint : strings.AppSharePointEnvironment);
-  }
-
-  protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
-    if (!currentTheme) {
-      return;
-    }
-
-    this._isDarkTheme = !!currentTheme.isInverted;
-    const {
-      semanticColors
-    } = currentTheme;
-
-    if (semanticColors) {
-      this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
-      this.domElement.style.setProperty('--link', semanticColors.link || null);
-      this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
-    }
 
   }
+
+
 
   protected get dataVersion(): Version {
     return Version.parse('1.0');
@@ -100,14 +71,37 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: 'Settings'//strings.PropertyPaneDescription
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: 'General Setting',//strings.BasicGroupName,
               groupFields: [
+                PropertyPaneCheckbox('test1', {
+                  text: 'Hide Title'
+                }),
                 PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                  label: 'Webpart Title'//strings.DescriptionFieldLabel
+                }),
+                PropertyPaneTextField('test', {
+                  label: 'Multiline Text',//strings.DescriptionFieldLabel
+                  multiline: true
+                }),
+
+                PropertyPaneToggle('test3', {
+                  label: 'Disable Choice',
+                  onText: 'Active',
+                  offText: 'Inactive'
+                }),
+                PropertyPaneDropdown('test2', {
+                  label: 'Dropdown',
+                  disabled: !this.properties.test3,
+                  options: [
+                    { key: 'One', text: 'One' },
+                    { key: 'Two', text: 'Two' },
+                    { key: 'Three', text: 'Three' },
+                    { key: 'Four', text: 'Four' }
+                  ]
                 })
               ]
             }

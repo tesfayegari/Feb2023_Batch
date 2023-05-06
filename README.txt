@@ -283,6 +283,26 @@ https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/buil
 
 https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/connect-to-sharepoint
 
+if(a=true){
+  //True Action
+}else{
+   //false action
+}
+
+using tertiary operator
+a=true ? //True Action : //False Action;
+
+JavaScript Function 
+
+function funcName (params) {
+	//block of codes
+	return value;
+}
+Arrow Function 
+funcName = (params) => value;
+
+Hellow World Webpart: Add custom code to read all sharepoint groups from the site 
+Also add more webpart properties for demo purpose 
 
 
 
