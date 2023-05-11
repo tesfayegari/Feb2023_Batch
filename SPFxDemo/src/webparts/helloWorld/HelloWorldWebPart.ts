@@ -38,15 +38,23 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
     }
     tempHtml += "</div>";
 
+    let tempHtml1 = '<div class="list-group">';
+    for(let l of this.spLists){
+      tempHtml1 += `<a href="#" class="list-group-item list-group-item-action">${l.Title + ' (' + l.ItemCount + ' items)'}</a>`
+    }
+    tempHtml1 += "</div>";
+
 
     this.domElement.innerHTML = `
                       <h3 class="${this.properties.test1 ? 'd-none' : ''}">${this.properties.description}</h3>
-                      <div class="jumbotron text-center">
-                        <h1>SP Groups in ${this.context.pageContext.web.title}</h1>   
+                      <div class="p-2 jumbotron text-center">
+                        <h3>SP Groups in ${this.context.pageContext.web.title}</h3>   
                         
                       </div>
                       <div class="container">
                         ${tempHtml}
+                        <h3>All sharepoint lists in the site </h3>
+                        ${tempHtml1}
                       </div>`;
   }
 
@@ -56,6 +64,11 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
     return this.service.readAllSPGroups().then(groups => {
       console.log('Groups are ', groups);
       this.spGroups = groups.value;
+      return this.service.getAllSharePointLists()
+        .then(lists => {
+          console.log('Lists are ', lists);
+          this.spLists = lists.value;
+        })
     });
 
   }

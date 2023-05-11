@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "new-hire-employee-client-side-solution",
+    "id": "aa819ce9-6c92-43f7-83b7-dd73fd298a01",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.17.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "new-hire-employee description"
+      },
+      "longDescription": {
+        "default": "new-hire-employee description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "new-hire-employee Feature",
+        "description": "The feature that activates elements of the new-hire-employee solution.",
+        "id": "bbd03d5b-03e5-4ecf-9e8c-9e53bb46162d",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/new-hire-employee.sppkg"
+  }
+}

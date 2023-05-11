@@ -6,12 +6,12 @@ export class SPService {
     constructor(private context: WebPartContext) { }
 
     readSharePointData(endPointUrl: string) {
-       return this.context.spHttpClient.get(endPointUrl, SPHttpClient.configurations.v1)
-            .then(response=>response.json())
+        return this.context.spHttpClient.get(endPointUrl, SPHttpClient.configurations.v1)
+            .then(response => response.json())
             .then(data => data);
-    }    
+    }
 
-    readAllSPGroups(){
+    readAllSPGroups() {
         //"siteUrl/_api/web/sitegroups?$filter=OwnerTitle ne 'System Account'"
         let url = this.context.pageContext.web.absoluteUrl + "/_api/web/sitegroups?$filter=OwnerTitle ne 'System Account'";
 
@@ -19,8 +19,11 @@ export class SPService {
 
     }
 
-    readSharePointItems(listName: string, filter: string) {
-        //let url = this.context.pageContext.web.absoluteUrl;
+    //read the most maxNumber new employees 
+    readEmployeesItems(listName: string, maxNumber: number = 3) {
+        let url = `/_api/web/lists/getbytitle('${listName}')/items?$select=Biography,Employee/Title,Employee/EMail&$top=${maxNumber}&$orderby=HireDate desc&$expand=Employee`;
+        let apiUrl = this.context.pageContext.web.absoluteUrl + url;
+        return this.readSharePointData(apiUrl);
     }
 
     getAllSharePointLists() {
