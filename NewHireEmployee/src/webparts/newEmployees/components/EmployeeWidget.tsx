@@ -3,7 +3,7 @@ import * as React from 'react';
 export function EmployeeWidget(props: any) {
     return (
         <div className="card" style={{ width: '100%' }}>
-            <img className="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" />
+            <img className="card-img-top" src={props?.photo} alt={props?.name}/>
             <div className="card-body">
                 <h6 className="card-title">{props?.name}</h6>
                 <p className="card-text">{props?.bio}</p>

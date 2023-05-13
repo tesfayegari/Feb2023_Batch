@@ -304,6 +304,26 @@ funcName = (params) => value;
 Hellow World Webpart: Add custom code to read all sharepoint groups from the site 
 Also add more webpart properties for demo purpose 
 
+Profile Photo URL 
+SiteUrl/_layouts/15/userphoto.aspx?size=L&username=emailOfTheUser
+
+example
+SiteURl/_layouts/15/userphoto.aspx?size=L&username=diegos@spwada.onmicrosoft.com
+
+SiteURl/_layouts/15/userphoto.aspx?size=L&username=pattif@spwada.onmicrosoft.com
+
+Tertiary Operator 
+
+a = b==true? value1 : value 2;
+
+
+phtoUrl= (emp.Photo == null) ? ProfilePic : JSON.parse(emp.Photo).AbsoluteUrl
+
+PNP React Property pane controls
+https://pnp.github.io/sp-dev-fx-property-controls/#installation
+
+PNP React Controls
+https://pnp.github.io/sp-dev-fx-controls-react/
 
 
 

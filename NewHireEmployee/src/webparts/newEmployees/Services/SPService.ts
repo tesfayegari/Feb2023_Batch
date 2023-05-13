@@ -20,8 +20,9 @@ export class SPService {
     }
 
     //read the most maxNumber new employees 
-    readEmployeesItems(listName: string, maxNumber: number = 3) {
-        let url = `/_api/web/lists/getbytitle('${listName}')/items?$select=Biography,Employee/Title,Employee/EMail&$top=${maxNumber}&$orderby=HireDate desc&$expand=Employee`;
+    readEmployeesItems(listId: string, maxNumber: number = 3) {
+        //let url = `/_api/web/lists/getbytitle('${listName}')/items?$select=Biography,Employee/Title,Employee/EMail,Photo,HireDate&$top=${maxNumber}&$orderby=HireDate desc&$expand=Employee`;
+        let url = `/_api/web/lists(guid'${listId}')/items?$select=Biography,Employee/Title,Employee/EMail,Photo,HireDate&$top=${maxNumber}&$orderby=HireDate desc&$expand=Employee`;
         let apiUrl = this.context.pageContext.web.absoluteUrl + url;
         return this.readSharePointData(apiUrl);
     }

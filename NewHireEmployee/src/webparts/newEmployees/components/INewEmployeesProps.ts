@@ -5,4 +5,6 @@ export interface INewEmployeesProps {
   isDarkTheme: boolean; 
   hasTeamsContext: boolean; 
   context: WebPartContext;
+  listID: string | string[]; // Stores the list ID(s)
+  maxEmployee: number;
 }
