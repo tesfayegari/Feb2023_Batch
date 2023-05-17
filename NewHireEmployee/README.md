@@ -3,8 +3,11 @@
 ## Summary
 
 Short summary on functionality and used technologies.
-
-[picture of the solution in action, if possible]
+## Webpart Image
+[https://github.com/tesfayegari/Feb2023_Batch/blob/master/NewHireEmployee/src/webparts/newEmployees/assets/NewHireWebpart.PNG]
+## List Template Images 
+[https://github.com/tesfayegari/Feb2023_Batch/blob/master/NewHireEmployee/src/webparts/newEmployees/assets/EmployeeListTemplate1.PNG]
+[https://github.com/tesfayegari/Feb2023_Batch/blob/master/NewHireEmployee/src/webparts/newEmployees/assets/EmployeeListTemplate2.PNG]
 
 ## Used SharePoint Framework Version
 
